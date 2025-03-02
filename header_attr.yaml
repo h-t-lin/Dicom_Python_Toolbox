@@ -1,0 +1,114 @@
+# --------------------------------------------------------
+# Add the required attributes to this file.
+# --------------------------------------------------------
+
+ # Medical image modality
+ - Modality
+
+ # Basic image information
+ - FileSize
+ - NumberOfTimeSlices
+ - NumberOfSlices
+ - Width
+ - Height
+ - Rows
+ - Columns
+ - PixelSpacing_1
+ - PixelSpacing_2
+ - SliceThickness
+ - SliceLocation
+ - FileMetaInformationGroupLength
+ - WindowCenter
+ - WindowCenter_1
+ - WindowCenter_2
+ - WindowWidth
+ - WindowWidth_1
+ - WindowWidth_2
+ - LargestImagePixelValue
+ - ImageType
+ - RescaleIntercept
+ - RescaleSlope
+ - RescaleType
+ - BitsAllocated
+ - BitsStored
+ - HighBit
+
+ # Study and series ID information
+ - StudyInstanceUID
+ - SeriesInstanceUID
+ - StudyID
+ - SeriesNumber
+ - InstanceNumber
+ - TransferSyntaxUID
+ 
+ # Date and time-related information
+ - StudyDate
+ - SeriesDate
+ - AcquisitionDate
+ - ContentDate
+ - StudyTime
+ - SeriesTime
+ - AcquisitionTime
+ - ContentTime
+ 
+ # Patient information
+ - PatientID
+ - PatientName
+ - PatientBirthDate
+ - PatientSex
+
+ # Scanner and equipment information
+ - Manufacturer
+ - ManufacturerModelName
+ - SoftwareVersions
+ - ImplementationVersionName
+ - ReconstructionMethod
+ - StationName
+ - BodyPartExamined
+
+ # Descriptive information
+ - StudyDescription
+ - SeriesDescription
+ - ImageComments
+ - ProtocolName
+ - RequestedProcedureDescription
+ - PerformedProcedureStepDescription
+ - PerformingPhysicianName
+ - ReferringPhysicianName
+ - InstitutionName
+ - InstitutionAddress
+ - AcquisitionProtocolDescription
+
+ # CT-specific information
+ - KVP
+ - ExposureTime
+ - XRayTubeCurrent
+ - Exposure
+ - ReconstructionDiameter
+ - ConvolutionKernel
+
+ # MR-specific information
+ - RepetitionTime
+ - EchoTime
+ - InversionTime
+ - ImagingFrequency
+ - NumberOfPhaseEncodingSteps
+ - PercentPhaseFieldOfView
+ - PixelBandwidth
+ - FlipAngle
+ - MagneticFieldStrength
+ - NumberOfAverages
+
+ # PET-specific information
+ - ActualFrameDuration
+ - AttenuationCorrectionMethod
+ - CorrectedImage
+ - RandomsCorrectionMethod
+ - PhotometricInterpretation
+ - Radiopharmaceutical
+ - RadiopharmaceuticalStartTime
+ - RadionuclideHalfLife
+ - RadionuclideTotalDose
+ - DecayCorrection
+ - DecayFactor
+ - DoseCalibrationFactor
