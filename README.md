@@ -77,11 +77,11 @@ The supported structures are:
     Dicom_rootdir_example_1/
     ├── Subject1/
     │   ├── Series1/
-    │   │   ├── DICOM_file1.dcm
-    │   │   ├── DICOM_file2.dcm
+    │   │   ├── dicom001.dcm
+    │   │   ├── dicom002.dcm
     │   │   └── ...
     │   └── Series2/
-    │       ├── DICOM_file1.dcm
+    │       ├── dicom001.dcm
     │       └── ...
     ├── Subject2/
     │   └── ...
@@ -93,11 +93,11 @@ The supported structures are:
     ```
     Dicom_rootdir_example_2/
     ├── Subject1/
-    │   ├── DICOM_file1.dcm
-    │   ├── DICOM_file2.dcm
+    │   ├── dicom001.dcm
+    │   ├── dicom002.dcm
     │   └── ...
     ├── Subject2/
-    │   ├── DICOM_file1.dcm
+    │   ├── dicom001.dcm
     │   └── ...
     └── ...
     ```
@@ -106,8 +106,8 @@ The supported structures are:
 
     ```
     Dicom_rootdir_example_3/
-    ├── DICOM_file1.dcm
-    ├── DICOM_file2.dcm
+    ├── dicom001.dcm
+    ├── dicom002.dcm
     └── ...
     ```
 
@@ -115,14 +115,14 @@ The supported structures are:
     **Series-Subjects-DICOM:**
 
     ```
-    Not_Suggested/
+    Not_suggested/
     ├── Series1/
     │   ├── Subject1/
-    │   │   ├── DICOM_file1.dcm
-    │   │   ├── DICOM_file2.dcm
+    │   │   ├── dicom001.dcm
+    │   │   ├── dicom002.dcm
     │   │   └── ...
     │   └── Subject2/
-    │       ├── DICOM_file1.dcm
+    │       ├── dicom001.dcm
     │       └── ...
     ├── Series2/
     │   └── ...
