@@ -1,5 +1,6 @@
 import argparse
 import os
+import logging as log
 from pydicom import dcmread
 from Utils.Finder import DicomFinder
 
@@ -31,17 +32,26 @@ def main():
     # Create output folder
     os.makedirs(outmainfolder, exist_ok=True)
 
+    # Record errors
+    errors = []
+
     # Find dicom files under the root
     print('*\n*\n----START----\n')
     dicom_path_dict = DicomFinder().find(inmainfolder) 
     for dcm in dicom_path_dict:
 
         # Check modality in dicom header
-        dicom_info = dcmread(dcm['path'])
+        print(f'Processing {dcm["subject"]}...')
+        try:
+            dicom_info = dcmread(dcm['path'])
+        except:
+            errors.append(f" Encountering an error when reading DICOM file of {dcm["subject"]}. Please check {dcm['path']}.")
+            continue
         try:
             MOD = dicom_info.Modality
         except:
-            raise RuntimeError(f"There's no attribute named Modality in dicom header of {dcm['path']}.")
+            errors.append(f" No attribute named 'Modality' in DICOM header of {dcm["subject"]}. Please check {dcm['path']}.")
+            continue
 
         # Create subfolder for each modality under the output folder
         outfolder = os.path.join(outmainfolder, MOD)
@@ -51,6 +61,13 @@ def main():
         command = f'{cmd["exe"]} {cmd["para"]} -f {dcm["subject"]} -o \"{outfolder}\" \"{dcm["folder"]}\"'
         print(f'\nConverting {MOD} of {dcm["subject"]}...')
         os.system(command)
+
+    # Print errors
+    if len(errors)>0:
+        print('\n**Errors**')
+        for msg in errors:
+            log.warning(msg)
+            print()
 
     print('*\n*\n----FINISHED----\n')
 

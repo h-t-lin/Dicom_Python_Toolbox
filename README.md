@@ -7,6 +7,12 @@ This toolbox provides two main functions for processing DICOM files: converting 
 -   **DICOM to NIfTI Conversion**: Converts batches of DICOM files to NIfTI format. (See `Dicom2Nifti.py`)
 -   **DICOM Header Extraction**: Extracts specified attributes from DICOM headers and compiles them into an Excel file. (See `DicomHeader_Reader.py`)
 
+## Latest Update (25/03/14)
+
+-   Added support for a new type of DICOM directory structure.  
+-   Added a description of the output NIfTI folder format.  
+-   Improved error handling: DICOM reading errors will now generate warnings instead of crashing the program.  
+
 ## Requirements
 
 -   Python==3.8
@@ -46,7 +52,7 @@ Use the command to converts batches of DICOM files to NIfTI format.
 python Dicom2Nifti.py --GLpath <MRIcroGL_path> --dcmroot <dicom_root_path> --outdir <output_directory>
 ```
 -   `--GLpath`: Path to the root directory of MRIcroGL.
--   `--dcmroot`: Path to the root directory of the DICOM files. (See next section **DICOM Directory Structure**)
+-   `--dcmroot`: Path to the root directory of the DICOM files. (See next section **DICOM Directory Structure & Output NIfTI Format**)
 -   `--outdir`: Path to the output directory for the NIfTI files.
 
 ### 2. DICOM Header Extraction with `DicomHeader_Reader.py`
@@ -57,7 +63,7 @@ python DicomHeader_Reader.py --mod <modality> --dcmroot <dicom_root_path> --outd
 ```
 
 -   `--mod`: Specify the modality (e.g., MR, CT, PT). Must be one of the modalities listed in **mods.yaml**.
--   `--dcmroot`: Path to the root directory of the DICOM files. (See next section **DICOM Directory Structure**)
+-   `--dcmroot`: Path to the root directory of the DICOM files. (See next section **DICOM Directory Structure & Output NIfTI Format**)
 -   `--outdir`: Path to the output directory for the Excel file.
 
 The script uses two configuration files:
@@ -65,9 +71,9 @@ The script uses two configuration files:
 -   `mods.yaml`: Lists the available modalities.
 -   `header_attr.yaml`: Lists the DICOM header attributes to extract. You can add more attributes to this file as needed.
 
-## DICOM Directory Structure
+## DICOM Directory Structure & Output NIfTI Format
 
-This toolbox can process DICOM files organized in three primary structures, or any combination thereof. For reference, please see the `Dicom_rootdir_examples` folder within the toolbox.
+This toolbox can process DICOM files organized in four primary structures, or **any combination** thereof. For reference, please see the `Dicom_rootdir_examples` folder within the toolbox.
 
 The supported structures are:
 
@@ -87,6 +93,18 @@ The supported structures are:
     │   └── ...
     └── ...
     ```
+    ```
+    # Output NIfTI
+    outdir/
+    ├── Series1Modality
+    │   ├── <Subject1>.nii
+    │   ├── <Subject2>.nii
+    │   └── ...
+    ├── Series2Modality
+    │   ├── <Subject1>.nii
+    │   └── ...
+    └── ...
+    ```
 
 2.  **Subjects-DICOM:**
 
@@ -101,6 +119,14 @@ The supported structures are:
     │   └── ...
     └── ...
     ```
+    ```
+    # Output NIfTI
+    outdir/
+    └── SeriesModality
+        └── <Subject1>.nii
+        ├── <Subject2>.nii
+        └── ...
+    ```
 
 3.  **Single Subject DICOM:**
 
@@ -110,8 +136,55 @@ The supported structures are:
     ├── dicom002.dcm
     └── ...
     ```
+    ```
+    # Output NIfTI
+    outdir/
+    └── SeriesModality
+        └── <Date-Time>.nii
+    ```
 
-4.  ***Not Suggested Structure:***  
+4.  **Subjects-(AuxiliaryDirs)-DICOM:**  
+    *There can be multiple layers of AuxiliaryDirs.*
+
+    ```
+    Dicom_rootdir_example_4/
+    ├── Subject1/
+    │   ├── AuxiliaryDir1/
+    │   │   ├── AuxiliaryDir1-1
+    │   │   │   ├── dicom001.dcm
+    │   │   │   ├── dicom002.dcm
+    │   │   │   └── ...
+    │   │   └── AuxiliaryDir1-2
+    │   │       ├── dicom001.dcm
+    │   │       └── ...
+    │   └── AuxiliaryDir2/
+    │       ├── AuxiliaryDir2-1
+    │       │   └── ...
+    │       └── AuxiliaryDir2-2
+    │           └── ...
+    ├── Subject2/
+    │   └── ...
+    └── ...
+    ```
+    ```
+    # Output NIfTI
+    outdir/
+    ├── Series1Modality
+    │   ├── <Subject1>.nii
+    │   ├── <Subject1>a.nii
+    │   ├── <Subject2>.nii
+    │   ├── <Subject2>a.nii
+    │   └── ...
+    ├── Series2Modality
+    │   ├── <Subject1>.nii
+    │   ├── <Subject1>a.nii
+    │   └── ...
+    └── ...
+    ```
+
+    Note: NIfTI filenames will be suffixed with a, b, c if multiple DICOM series of the same modality exist.  
+
+5.  ***Not Suggested Structure:***  
     **Series-Subjects-DICOM:**
 
     ```
@@ -129,7 +202,7 @@ The supported structures are:
     └── ...
     ```
 
-    This structure may lead to unclear output, and is thus **not recommended** for use.
+    Note: This structure may lead to unclear output, and is thus **not recommended** for use.
 
 ## Toolbox File Descriptions
 
