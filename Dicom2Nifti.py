@@ -43,14 +43,14 @@ def main():
         # Check modality in dicom header
         print(f'Processing {dcm["subject"]}...')
         try:
-            dicom_info = dcmread(dcm['path'])
+            dicom_info = dcmread(dcm["path"])
         except:
-            errors.append(f" Encountering an error when reading DICOM file of {dcm["subject"]}. Please check {dcm['path']}.")
+            errors.append(f' Encountering an error when reading DICOM file of {dcm["subject"]}. Please check {dcm["path"]}.')
             continue
         try:
             MOD = dicom_info.Modality
         except:
-            errors.append(f" No attribute named 'Modality' in DICOM header of {dcm["subject"]}. Please check {dcm['path']}.")
+            errors.append(f' No attribute named "Modality" in DICOM header of {dcm["subject"]}. Please check {dcm["path"]}.')
             continue
 
         # Create subfolder for each modality under the output folder
